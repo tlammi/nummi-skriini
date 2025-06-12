@@ -1,0 +1,10 @@
+[Unit]
+Description=Plai media player
+Wants=weston.service
+After=weston.service
+
+[Service]
+ExecStart=plai -l debug --watermark <path> --image-dur 5 --blend 2 --fullscreen --accel=vulkan --watermark-stretch
+
+[Install]
+WantedBy=default.target
