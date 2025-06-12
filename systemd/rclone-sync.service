@@ -1,0 +1,11 @@
+[Unit]
+Description=Rclone Sync Service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/scripts/rclone-sync.sh
+
+[Install]
+WantedBy=default.target
