@@ -1,0 +1,9 @@
+[Unit]
+Description=Weston session
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/weston --shell=fullscreen-shell.so
+
+[Install]
+RequiredBy=graphical.target

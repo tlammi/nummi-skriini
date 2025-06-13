@@ -1,0 +1,39 @@
+#!/bin/bash
+
+{% macro section(text) -%}
+###############################################################################
+# {{text}}
+###############################################################################
+{%- endmacro%}
+
+{{section("config")}}
+set -e
+
+export DEBIAN_FRONTEND=noninteractive
+
+{{section("Wifi")}}
+{% if wifi.ssid | length %}
+nmcli r wifi on
+nmcli d wifi connect {{wifi.ssid}} password {{wifi.pw}}
+{% endif %}
+
+{{section("eth0")}}
+NM_CONF_DIR="/etc/NetworkManager/system-connections/"
+{% for cfg in nm_configs %}
+cat >$NM_CONF_DIR/{{cfg.file}} <<EOF
+{{cfg.content}}
+EOF
+{%endfor%}
+
+{{section("Apt packages")}}
+apt install -y libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libsdl2-dev libsqlite3-dev libssl-dev libboost-dev libfmt-dev
+apt install -y rclone python3 python3-pip weston
+
+{{section("Systemd units")}}
+SYSTEMD_UNIT_DIR="/etc/systemd/system/"
+{% for unit in units %}
+cat >$SYSTEMD_UNIT_DIR/{{unit.file}} <<EOF
+{{unit.content}}
+EOF
+{% endfor %}
+
