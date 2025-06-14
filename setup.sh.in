@@ -47,13 +47,14 @@ set -e
 export PATH="~/.local/bin:$PATH"
 [ -d ~/code/plai ] || (mkdir -p ~/code && git clone https://github.com/tlammi/plai.git ~/code/plai)
 cd ~/code/plai
+git fetch
 git checkout {{plai}}
 meson setup --optimization=3 -Dtests=false build
 ninja -C build
 EOF
 
 {{section("Install plai")}}
-ninja -C ~user/code/plai/build
+ninja -C ~user/code/plai/build install
 
 {{section("Systemd units")}}
 SYSTEMD_UNIT_DIR="/etc/systemd"
