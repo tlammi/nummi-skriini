@@ -5,6 +5,8 @@ import sys
 import argparse
 
 from pathlib import Path
+from subprocess import run, PIPE
+
 import jinja2
 
 THISDIR=Path(__name__).parent.resolve()
@@ -32,12 +34,17 @@ def read_nm():
         cfgs.append({"file": cfg.name, "content": _read(cfg)})
     return cfgs
 
+def read_rclone(nm: str):
+    res = run(["rclone", "config", "show", nm], stdout=PIPE, check=True)
+    return res.stdout.decode()
+
 def parse_cli() -> argparse.Namespace:
     p = argparse.ArgumentParser()
     p.add_argument("--ssid", help="WLAN SSID. Set to '' to disable", required=True)
     p.add_argument("--wifi-pw", help="WLAN password. Set to empty to disable")
     p.add_argument("--plai", help="Plai reference to compile and install. Set to empty to disable.", required=True)
     p.add_argument("--mplayer", help="Mplayer reference to install. Set to empty to disable.", required=True)
+    p.add_argument("--rclone", help="Name of the rclone config to use. Set to empty to disable", required=True)
     ns = p.parse_args()
     if ns.ssid and ns.wifi_pw is None:
         raise ValueError("WIFI password required. Set to empty to disable")
@@ -47,7 +54,8 @@ def main():
     units = read_units()
     tmpl = jinja2.Template(SCRIPT_TEMPLATE)
     ns = parse_cli()
-    print(tmpl.render(units=units, wifi={"ssid": ns.ssid, "pw": ns.wifi_pw}, nm_configs=read_nm(), plai=ns.plai, mplayer=ns.mplayer))
+    rclone_cfg = read_rclone(ns.rclone) if ns.rclone else ""
+    print(tmpl.render(units=units, wifi={"ssid": ns.ssid, "pw": ns.wifi_pw}, nm_configs=read_nm(), plai=ns.plai, mplayer=ns.mplayer, rclone=ns.rclone, rclone_cfg=rclone_cfg))
 
 if __name__ == "__main__":
     sys.exit(main() or 0)

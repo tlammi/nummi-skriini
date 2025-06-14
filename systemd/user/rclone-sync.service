@@ -5,7 +5,7 @@ After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=%h/scripts/rclone-sync.sh
+ExecStart=/usr/bin/rclone-drive.sh /ScreenReel %h/skriini
 
 [Install]
 WantedBy=default.target

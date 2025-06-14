@@ -36,25 +36,41 @@ EOF
 apt install -y libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libsdl2-dev \
   libsqlite3-dev libssl-dev libboost-dev libfmt-dev
 apt install -y rclone python3 python3-pip weston
-apt install -y vim ninja-build git cmake
+apt install -y vim meson ninja-build git cmake
 
-{{section("pip packages")}}
-sudo -su user pip install --user --break-system-packages meson
-
+{% if plai | length %}
 {{section("Compile plai")}}
-sudo -su user << EOF
+sudo -iu user << EOF
 set -e
-export PATH="~/.local/bin:$PATH"
+#export PATH="~/.local/bin:$PATH"
 [ -d ~/code/plai ] || (mkdir -p ~/code && git clone https://github.com/tlammi/plai.git ~/code/plai)
 cd ~/code/plai
 git fetch
 git checkout {{plai}}
-meson setup --optimization=3 -Dtests=false build
+meson setup --optimization=3 --default-library=static -Dtests=false build 
 ninja -C build
 EOF
+{% endif %}
 
 {{section("Install plai")}}
-ninja -C ~user/code/plai/build install
+sudo -iu user sh -c 'sudo ninja -C ~user/code/plai/build install'
+
+{% if rclone | length %}
+{{section("Generate rclone script")}}
+cat > /usr/bin/rclone-drive.sh << 'EOF'
+#!/bin/bash
+set -eu
+rclone sync --drive-shared-with-me "{{rclone}}:$1" "$2"
+EOF
+chmod +x /usr/bin/rclone-drive.sh
+{{section("Configure rclone")}}
+sudo -su user mkdir -p ~user/.config/rclone
+sudo -su user cat > ~user/.config/rclone/rclone.conf << EOF
+{{rclone_cfg}}
+EOF
+{% else %}
+ln -s /bin/false /usr/bin/rclone-drive.sh
+{% endif %}
 
 {{section("Systemd units")}}
 SYSTEMD_UNIT_DIR="/etc/systemd"
@@ -71,7 +87,7 @@ systemctl -M user@ --user {{args}}
 {% endmacro -%}
 
 {{systemd_user("enable plai.service")}}
-{{systemd_user("enable rclone.service")}}
+{{systemd_user("enable rclone-sync.service")}}
 {{systemd_user("enable mplayer.service")}}
 
 {{section("Done")}}
