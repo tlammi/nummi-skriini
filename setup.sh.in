@@ -70,6 +70,7 @@ EOF
 
 {% if rclone | length %}
 {{section("Generate rclone script")}}
+rm -f /usr/bin/rclone-drive.sh
 cat > /usr/bin/rclone-drive.sh << 'EOF'
 #!/bin/bash
 set -eu
@@ -82,12 +83,12 @@ sudo -su user cat > ~user/.config/rclone/rclone.conf << EOF
 {{rclone_cfg}}
 EOF
 {% else %}
-ln -s /bin/false /usr/bin/rclone-drive.sh
+ln -s /bin/false /usr/bin/rclone-drive.sh || true
 {% endif %}
 
 {{section("Populating weston.ini")}}
 sudo -su user mkdir -p ~user/.config
-sudo -su cat > ~user/.config/weston.ini << EOF
+sudo -su user cat > ~user/.config/weston.ini << EOF
 {{weston_ini}}
 EOF
 
