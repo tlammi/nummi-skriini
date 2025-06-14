@@ -4,6 +4,7 @@ playlist_names = ["adds", "wed", "thu", "fri", "sat"]
 # Keskiviikko
 [[schedule]]
 playlist = "adds"
+at = 2025-06-01 14:25:00
 
 # Torstai
 # The man-eating tree
@@ -20,7 +21,7 @@ offset = 01:10:00
 playlist = "wed"
 at = 2025-06-19 17:25:00
 
-5[[schedule]]
+[[schedule]]
 playlist = "adds"
 offset = 01:10:00
 
