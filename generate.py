@@ -36,6 +36,8 @@ def parse_cli() -> argparse.Namespace:
     p = argparse.ArgumentParser()
     p.add_argument("--ssid", help="WLAN SSID. Set to '' to disable", required=True)
     p.add_argument("--wifi-pw", help="WLAN password. Set to empty to disable")
+    p.add_argument("--plai", help="Plai reference to compile and install. Set to empty to disable.", required=True)
+    p.add_argument("--mplayer", help="Mplayer reference to install. Set to empty to disable.", required=True)
     ns = p.parse_args()
     if ns.ssid and ns.wifi_pw is None:
         raise ValueError("WIFI password required. Set to empty to disable")
@@ -45,7 +47,7 @@ def main():
     units = read_units()
     tmpl = jinja2.Template(SCRIPT_TEMPLATE)
     ns = parse_cli()
-    print(tmpl.render(units=units, wifi={"ssid": ns.ssid, "pw": ns.wifi_pw}, nm_configs=read_nm()))
+    print(tmpl.render(units=units, wifi={"ssid": ns.ssid, "pw": ns.wifi_pw}, nm_configs=read_nm(), plai=ns.plai, mplayer=ns.mplayer))
 
 if __name__ == "__main__":
     sys.exit(main() or 0)
