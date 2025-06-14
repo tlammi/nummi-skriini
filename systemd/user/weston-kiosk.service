@@ -1,0 +1,18 @@
+[Unit]
+Description=Weston kiosk
+Requires=weston-kiosk.socket
+After=weston-kiosk.socket
+Before=default.target
+
+[Service]
+Type=notify
+TimeoutStartSec=60
+WatchdogSec=20
+StandardOutput=journal
+StandardError=journal
+RestartSec=10
+Restart=always
+ExecStart=/usr/bin/weston --shell=fullscreen-shell.so --modules=systemd-notify.so
+
+[Install]
+RequiredBy=default.target

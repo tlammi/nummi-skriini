@@ -1,0 +1,5 @@
+[Unit]
+Description=Weston kiosk socket
+
+[Socket]
+ListenStream=%t/wayland-0

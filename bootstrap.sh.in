@@ -34,8 +34,9 @@ apt install -y rclone python3 python3-pip weston
 apt install -y vim
 
 {{section("Systemd units")}}
-SYSTEMD_UNIT_DIR="/etc/systemd/system/"
+SYSTEMD_UNIT_DIR="/etc/systemd"
 {% for unit in units %}
+mkdir -p "$(dirname "$SYSTEMD_UNIT_DIR/{{unit.file}}")"
 cat >$SYSTEMD_UNIT_DIR/{{unit.file}} <<EOF
 {{unit.content}}
 EOF

@@ -17,12 +17,13 @@ SCRIPT_TEMPLATE = _read(THISDIR / "bootstrap.sh.in")
 
 def read_units():
     units = []
-    patterns = ["*.service", "*.timer"]
+    patterns = ["**/*.service", "**/*.socket", "**/*.timer", "**/*.conf"]
+    root = THISDIR / "systemd"
     for pat in patterns:
-        for unit in (THISDIR/ "systemd").glob(pat):
-            with open(unit) as f:
-                content = f.read()
-            units.append({"file": unit.name, "content": content})
+        for unit in root.rglob(pat):
+            content = _read(unit)
+            file = unit.relative_to(root)
+            units.append({"file": file, "content": content})
     return units
 
 def read_nm():
