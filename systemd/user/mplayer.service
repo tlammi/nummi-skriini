@@ -1,0 +1,17 @@
+[Unit]
+Description=Media player controller
+Requires=plai.service
+After=plai.service
+Before=default.target
+
+[Service]
+Type=notify
+TimeoutStartSec=60
+StandardOutput=journal
+StandardError=journal
+RestartSec=10
+Restart=always
+ExecStart=%h/.local/bin/mplayer --config %h/.config/mplayer/config.toml --schedule %h/.config/mplayer/schedule.toml -l debug
+
+[Install]
+RequiredBy=default.target
