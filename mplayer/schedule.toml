@@ -1,0 +1,117 @@
+# List of playlists, used to protect against typos
+playlist_names = ["adds", "wed", "thu", "fri", "sat"]
+
+# Keskiviikko
+[[schedule]]
+playlist = "adds"
+
+# Torstai
+# The man-eating tree
+[[schedule]]
+playlist = "wed"
+at = 2025-06-19 14:25:00
+
+[[schedule]]
+playlist = "adds"
+offset = 01:10:00
+
+# Paleface swiss
+[[schedule]]
+playlist = "wed"
+at = 2025-06-19 17:25:00
+
+5[[schedule]]
+playlist = "adds"
+offset = 01:10:00
+
+# Bloodred Hourglass
+[[schedule]]
+playlist = "wed"
+at = 2025-06-19 20:25:00
+
+[[schedule]]
+playlist = "adds"
+offset = 01:10:00
+
+# Stratovarius
+[[schedule]]
+playlist = "wed"
+at = 2025-06-19 23:40:00
+
+[[schedule]]
+playlist = "adds"
+at = "25:00:00"
+
+# Perjantai
+# Before the Dawn
+[[schedule]]
+playlist = "fri"
+at = 2025-06-20 14:25:00
+
+[[schedule]]
+playlist = "adds"
+offset = 01:10:00
+
+# Decapitated
+[[schedule]]
+playlist = "fri"
+at = 2025-06-20 17:25:00
+
+[[schedule]]
+playlist = "adds"
+offset = 01:10:00
+
+# Fit for an Autopsy
+[[schedule]]
+playlist = "fri"
+at = 2025-06-20 20:25:00
+
+[[schedule]]
+playlist = "adds"
+offset = 01:10:00
+
+# Mokoma
+[[schedule]]
+playlist = "fri"
+at = 2025-06-20 23:55:00
+
+[[schedule]]
+playlist = "adds"
+offset = 01:10:00
+
+# Lauantai
+# Hevisaurus
+[[schedule]]
+playlist = "sat"
+at = 2025-06-21 14:25:00
+
+[[schedule]]
+playlist = "adds"
+offset = 01:10:00
+
+# Cemetery Skyline
+[[schedule]]
+playlist = "sat"
+at = 2025-06-21 17:10:00
+
+[[schedule]]
+playlist = "adds"
+offset = 01:10:00
+
+# Alestorm
+[[schedule]]
+playlist = "sat"
+at = 2025-06-21 20:25:00
+
+[[schedule]]
+playlist = "adds"
+offset = 01:10:00
+
+# Turmion Kätilöt
+[[schedule]]
+playlist = "sat"
+at = 2025-06-21 23:55:00
+
+[[schedule]]
+playlist = "adds"
+offset = 01:10:00
