@@ -55,7 +55,8 @@ def main():
     tmpl = jinja2.Template(SCRIPT_TEMPLATE)
     ns = parse_cli()
     rclone_cfg = read_rclone(ns.rclone) if ns.rclone else ""
-    print(tmpl.render(units=units, wifi={"ssid": ns.ssid, "pw": ns.wifi_pw}, nm_configs=read_nm(), plai=ns.plai, mplayer=ns.mplayer, rclone=ns.rclone, rclone_cfg=rclone_cfg))
+    weston_ini = _read(THISDIR / "weston.ini")
+    print(tmpl.render(units=units, wifi={"ssid": ns.ssid, "pw": ns.wifi_pw}, nm_configs=read_nm(), plai=ns.plai, mplayer=ns.mplayer, rclone=ns.rclone, rclone_cfg=rclone_cfg, weston_ini=weston_ini))
 
 if __name__ == "__main__":
     sys.exit(main() or 0)

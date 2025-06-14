@@ -1,7 +1,7 @@
 [Unit]
-Description=Weston kiosk
-Requires=weston-kiosk.socket
-After=weston-kiosk.socket
+Description=Weston
+Requires=weston.socket
+After=weston.socket
 Before=default.target
 
 [Service]
@@ -12,7 +12,7 @@ StandardOutput=journal
 StandardError=journal
 RestartSec=10
 Restart=always
-ExecStart=/usr/bin/weston --shell=fullscreen-shell.so --modules=systemd-notify.so
+ExecStart=/usr/bin/weston --modules=systemd-notify.so
 
 [Install]
 RequiredBy=default.target

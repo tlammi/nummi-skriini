@@ -72,6 +72,13 @@ EOF
 ln -s /bin/false /usr/bin/rclone-drive.sh
 {% endif %}
 
+{{section("Populating weston.ini")}}
+sudo -su user mkdir -p ~user/.config
+sudo -su cat > ~user/.config/weston.ini << EOF
+{{weston_ini}}
+EOF
+
+
 {{section("Systemd units")}}
 SYSTEMD_UNIT_DIR="/etc/systemd"
 {% for unit in units %}
@@ -86,6 +93,7 @@ EOF
 systemctl -M user@ --user {{args}}
 {% endmacro -%}
 
+{{systemd_user("enable weston.service")}}
 {{systemd_user("enable plai.service")}}
 {{systemd_user("enable rclone-sync.service")}}
 {{systemd_user("enable mplayer.service")}}
