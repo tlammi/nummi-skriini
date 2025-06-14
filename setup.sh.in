@@ -107,7 +107,6 @@ EOF
 systemctl -M user@ --user {{args}}
 {% endmacro -%}
 
-{{systemd_user("enable weston.service")}}
 {{systemd_user("enable plai.service")}}
 {{systemd_user("enable rclone-sync.service")}}
 {{systemd_user("enable mplayer.service")}}
