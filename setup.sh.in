@@ -58,6 +58,14 @@ sudo -iu user sh -c 'sudo ninja -C ~user/code/plai/build install'
 {% if mplayer | length %}
 {{section("Install mplayer")}}
 sudo -su user pip install --user --break-system-packages "git+https://github.com/tlammi/mplayer.git@{{mplayer}}"
+{{section("Install mplayer configs")}}
+sudo -su user mkdir -p ~user/.config/mplayer
+sudo -su user cat > ~user/.config/mplayer/config.toml << EOF
+{{mplayer_conf}} 
+EOF
+sudo -su user cat > ~user/.config/mplayer/schedule.toml << EOF
+{{mplayer_sched}}
+EOF
 {% endif %}
 
 {% if rclone | length %}

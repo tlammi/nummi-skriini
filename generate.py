@@ -38,6 +38,11 @@ def read_rclone(nm: str):
     res = run(["rclone", "config", "show", nm], stdout=PIPE, check=True)
     return res.stdout.decode()
 
+def read_mplayer_conf():
+    return _read(THISDIR / "mplayer" / "config.toml")
+def read_mplayer_sched():
+    return _read(THISDIR / "mplayer" / "schedule.toml")
+
 def parse_cli() -> argparse.Namespace:
     p = argparse.ArgumentParser()
     p.add_argument("--ssid", help="WLAN SSID. Set to '' to disable", required=True)
@@ -56,7 +61,17 @@ def main():
     ns = parse_cli()
     rclone_cfg = read_rclone(ns.rclone) if ns.rclone else ""
     weston_ini = _read(THISDIR / "weston.ini")
-    print(tmpl.render(units=units, wifi={"ssid": ns.ssid, "pw": ns.wifi_pw}, nm_configs=read_nm(), plai=ns.plai, mplayer=ns.mplayer, rclone=ns.rclone, rclone_cfg=rclone_cfg, weston_ini=weston_ini))
+    print(tmpl.render(
+        units=units,
+        wifi={"ssid": ns.ssid, "pw": ns.wifi_pw},
+        nm_configs=read_nm(),
+        plai=ns.plai,
+        mplayer=ns.mplayer,
+        mplayer_conf=read_mplayer_conf(),
+        mplayer_sched=read_mplayer_sched(),
+        rclone=ns.rclone,
+        rclone_cfg=rclone_cfg,
+        weston_ini=weston_ini))
 
 if __name__ == "__main__":
     sys.exit(main() or 0)
