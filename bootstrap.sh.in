@@ -28,8 +28,10 @@ EOF
 {%endfor%}
 
 {{section("Apt packages")}}
-apt install -y libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libsdl2-dev libsqlite3-dev libssl-dev libboost-dev libfmt-dev
+apt install -y libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libsdl2-dev \
+  libsqlite3-dev libssl-dev libboost-dev libfmt-dev
 apt install -y rclone python3 python3-pip weston
+apt install -y vim
 
 {{section("Systemd units")}}
 SYSTEMD_UNIT_DIR="/etc/systemd/system/"
