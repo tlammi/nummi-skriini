@@ -13,7 +13,7 @@ def _read(path: os.PathLike):
     with open(path) as f:
         return f.read()
 
-SCRIPT_TEMPLATE = _read(THISDIR / "bootstrap.sh.in")
+SCRIPT_TEMPLATE = _read(THISDIR / "setup.sh.in")
 
 def read_units():
     units = []
