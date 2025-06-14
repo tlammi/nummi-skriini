@@ -55,6 +55,11 @@ EOF
 {{section("Install plai")}}
 sudo -iu user sh -c 'sudo ninja -C ~user/code/plai/build install'
 
+{% if mplayer | length %}
+{{section("Install mplayer")}}
+sudo -su user pip install --user --break-system-packages "git+https://github.com/tlammi/mplayer.git@{{mplayer}}"
+{% endif %}
+
 {% if rclone | length %}
 {{section("Generate rclone script")}}
 cat > /usr/bin/rclone-drive.sh << 'EOF'
