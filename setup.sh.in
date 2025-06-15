@@ -13,6 +13,14 @@ set -e
 
 export DEBIAN_FRONTEND=noninteractive
 
+{{section("Resources")}}
+sudo -su user mkdir -p ~user/resources
+{% for resource in resources %}
+sudo -su user base64 -d > ~user/resources/{{resource.file}} << EOF
+{{resource.data}}
+EOF
+{%endfor%}
+
 {{section("Wifi")}}
 {% if wifi.ssid | length %}
 nmcli r wifi on

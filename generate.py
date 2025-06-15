@@ -3,17 +3,30 @@
 import os
 import sys
 import argparse
+import base64
 
 from pathlib import Path
+from typing import overload, Literal
 from subprocess import run, PIPE
 
 import jinja2
 
 THISDIR=Path(__name__).parent.resolve()
 
-def _read(path: os.PathLike):
-    with open(path) as f:
-        return f.read()
+@overload
+def _read(path, *, binary: Literal[True]) -> bytes: ...
+@overload
+def _read(path, *, binary: Literal[False]) -> str: ...
+@overload
+def _read(path) -> str: ...
+
+def _read(path: os.PathLike, *, binary=False):
+    if binary:
+        with open(path, "rb") as f:
+            return f.read()
+    else:
+        with open(path) as f:
+            return f.read()
 
 SCRIPT_TEMPLATE = _read(THISDIR / "setup.sh.in")
 
@@ -43,6 +56,16 @@ def read_mplayer_conf():
 def read_mplayer_sched():
     return _read(THISDIR / "mplayer" / "schedule.toml")
 
+def populate_resources(enabled: bool):
+    if not enabled:
+        return []
+    out = []
+    for resource in (THISDIR/"resources").glob("*"):
+        b64 = base64.b64encode(_read(resource, binary=True))
+        out.append({"file": resource.name, "data": b64.decode()})
+    return out
+
+
 def parse_cli() -> argparse.Namespace:
     p = argparse.ArgumentParser()
     p.add_argument("--ssid", help="WLAN SSID. Set to '' to disable", required=True)
@@ -50,6 +73,7 @@ def parse_cli() -> argparse.Namespace:
     p.add_argument("--plai", help="Plai reference to compile and install. Set to empty to disable.", required=True)
     p.add_argument("--mplayer", help="Mplayer reference to install. Set to empty to disable.", required=True)
     p.add_argument("--rclone", help="Name of the rclone config to use. Set to empty to disable", required=True)
+    p.add_argument("--resources", action=argparse.BooleanOptionalAction, default=True, help="Embed resources into the setup script")
     ns = p.parse_args()
     if ns.ssid and ns.wifi_pw is None:
         raise ValueError("WIFI password required. Set to empty to disable")
@@ -71,7 +95,10 @@ def main():
         mplayer_sched=read_mplayer_sched(),
         rclone=ns.rclone,
         rclone_cfg=rclone_cfg,
-        weston_ini=weston_ini))
+        weston_ini=weston_ini,
+        resources=populate_resources(ns.resources),
+        )
+    )
 
 if __name__ == "__main__":
     sys.exit(main() or 0)
