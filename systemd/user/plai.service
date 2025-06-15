@@ -4,7 +4,7 @@ Wants=weston.service
 After=weston.service
 
 [Service]
-ExecStart=plai -l debug --watermark <path> --image-dur 5 --blend 2 --fullscreen --accel=vulkan --watermark-stretch
+ExecStart=plai -l debug --watermark %h/resources/watermark.png --img-dur 5 --blend 2 --fullscreen --accel=vulkan --watermark-stretch
 
 [Install]
 WantedBy=default.target
