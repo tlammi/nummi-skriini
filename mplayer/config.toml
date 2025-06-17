@@ -17,10 +17,10 @@ path = ""
 scaling = { w = 1.0, h = 1.0}
 
 [playlist.adds]
-globs = ["Mainokset/*.mp4"]
+globs = ["+Mainokset/*.mp4"]
 
 [playlist.pics]
-globs = "Photo-screen/*.JPG"
+globs = "+Photo-screen/*.JPG"
 filter = { algo = "newest", count = 20}
 
 [playlist.wed]
@@ -36,14 +36,14 @@ from = ["prog_fri", "pics"]
 from = ["prog_sat", "pics"]
 
 [playlist.prog_wed]
-globs = "Ohjelma/KE/*.mp4"
+globs = "+Ohjelma/KE/*.mp4"
 
 [playlist.prog_thu]
-globs = "Ohjelma/TO/*.mp4"
+globs = "+Ohjelma/TO/*.mp4"
 
 [playlist.prog_fri]
-globs = "Ohjelma/PE/*.mp4"
+globs = "+Ohjelma/PE/*.mp4"
 
 [playlist.prog_sat]
-globs = "Ohjelma/LA/*.mp4"
+globs = "+Ohjelma/LA/*.mp4"
 
