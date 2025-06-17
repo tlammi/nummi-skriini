@@ -119,6 +119,7 @@ systemctl -M user@ --user {{args}}
 
 {{systemd_user("enable plai.service")}}
 {{systemd_user("enable rclone-sync.service")}}
+{{systemd_user("enable rclone-sync.timer")}}
 {{systemd_user("enable mplayer.service")}}
 
 {{section("Done")}}
