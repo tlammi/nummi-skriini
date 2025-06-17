@@ -60,10 +60,9 @@ git checkout {{plai}}
 meson setup --optimization=3 --default-library=static -Dtests=false build 
 ninja -C build
 EOF
-{% endif %}
-
 {{section("Install plai")}}
 sudo -iu user sh -c 'sudo ninja -C ~user/code/plai/build install'
+{% endif %}
 
 {% if mplayer | length %}
 {{section("Install mplayer")}}
