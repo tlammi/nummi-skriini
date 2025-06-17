@@ -1,13 +1,12 @@
 [connection]
-id=eth0
+id=eth0-static
 uuid=44a30fae-4c58-4b31-8638-5d448e9d710f
 type=ethernet
 interface-name=eth0
 autoconnect=true
 
 [ipv4]
-method=auto
-dhcp-fallback=route
+method=manual
 address1=192.168.69.100/24,192.168.69.1
 dns=8.8.8.8;1.1.1.1;
 
