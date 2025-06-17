@@ -33,6 +33,8 @@ NM_CONF_DIR="/etc/NetworkManager/system-connections/"
 cat >$NM_CONF_DIR/{{cfg.file}} <<EOF
 {{cfg.content}}
 EOF
+# NetworkManager is really strict about this
+chmod 600 $NM_CONF_DIR/{{cfg.file}}
 {%endfor%}
 
 {{section("/etc/profile.d")}}
