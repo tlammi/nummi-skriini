@@ -43,6 +43,7 @@ export PATH="~/.local/bin:$PATH"
 EOF
 
 {{section("Apt packages")}}
+apt update -y
 apt install -y libavcodec-dev libavformat-dev libavutil-dev libswscale-dev libsdl2-dev \
   libsqlite3-dev libssl-dev libboost-dev libfmt-dev
 apt install -y rclone python3 python3-pip weston
