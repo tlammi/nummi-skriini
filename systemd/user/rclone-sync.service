@@ -5,7 +5,7 @@ After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/rclone-drive.sh /ScreenReel %h/skriini
+ExecStart=/usr/bin/rclone-drive.sh /Skriinille_2026 %h/skriini
 
 [Install]
 WantedBy=default.target
