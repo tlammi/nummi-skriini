@@ -16,24 +16,8 @@ blend-duration = 1.0
 path = ""
 scaling = { w = 1.0, h = 1.0}
 
-[playlist.adds]
-globs = ["+Mainokset/*.mp4"]
-
-[playlist.pics]
-globs = "+Photo-screen/*.JPG"
-filter = { algo = "newest", count = 20}
-
-[playlist.wed]
-from = ["prog_wed", "pics"]
-
-[playlist.thu]
-from = ["prog_thu", "pics"]
-
-[playlist.fri]
-from = ["prog_fri", "pics"]
-
-[playlist.sat]
-from = ["prog_sat", "pics"]
+[playlist.stuff]
+globs = ["+Mainokset/*.mp4", "+Photo-screen/*.JPG", "+Photo-screen/*.jpg", "+Photo-screen/*.JPEG", "+Photo-screen/*.jpeg"]
 
 [playlist.prog_wed]
 globs = "+Ohjelma/KE/*.mp4"
@@ -47,3 +31,14 @@ globs = "+Ohjelma/PE/*.mp4"
 [playlist.prog_sat]
 globs = "+Ohjelma/LA/*.mp4"
 
+[playlist.wed]
+from = ["prog_wed", "stuff"]
+
+[playlist.thu]
+from = ["prog_thu", "stuff"]
+
+[playlist.fri]
+from = ["prog_fri", "stuff"]
+
+[playlist.sat]
+from = ["prog_sat", "stuff"]
