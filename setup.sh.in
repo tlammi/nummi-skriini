@@ -28,6 +28,9 @@ nmcli d wifi connect {{wifi.ssid}} password {{wifi.pw}}
 {% endif %}
 
 {{section("eth0")}}
+# Netplan overwrites nm options
+rm -rf /etc/netplan
+
 NM_CONF_DIR="/etc/NetworkManager/system-connections/"
 {% for cfg in nm_configs %}
 cat >$NM_CONF_DIR/{{cfg.file}} <<EOF
