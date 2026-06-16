@@ -6,7 +6,11 @@ After=weston.service
 [Service]
 RestartSec=10
 Restart=always
-ExecStart=plai -l debug --background %h/resources/background.png --watermark %h/resources/watermark.png --img-dur 4 --blend 2 --fullscreen --accel=vulkan --watermark-stretch
+ExecStart=plai -l debug \
+  --background %h/resources/background.png \
+  --watermark %h/resources/watermark.png \
+  --img-dur 4 --blend 2 --fullscreen --accel=vulkan \
+  --watermark-stretch -bg-stretch
 
 [Install]
 WantedBy=default.target
