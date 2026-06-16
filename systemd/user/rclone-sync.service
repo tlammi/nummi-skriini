@@ -6,6 +6,10 @@ After=network-online.target
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/rclone-drive.sh /Skriinille_2026 %h/skriini
+ExecStartPost=%h/.local/bin/mplayer \
+  --config %h/.config/mplayer/config.toml \
+  --schedule %h/.config/mplayer/schedule.toml \
+  -l debug --once
 
 [Install]
 WantedBy=default.target
